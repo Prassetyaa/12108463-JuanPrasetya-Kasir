@@ -78,6 +78,16 @@ class AuthController extends Controller
             return redirect()->route('dashboard')->withSuccess('Successfully added User')->withInput();
         }
 
+    public function destroy($id)
+{
+    $data = User::find($id);
+
+    if ($data) {
+        $data->delete();
+    }
+
+    return redirect()->route('dashboard')->withSuccess('Successfuly Delete Users')->withInput();
+}
 
     public function logout()
         {

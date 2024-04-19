@@ -15,24 +15,27 @@ Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.login');
 });
 
-// Route::middleware(['UserAkses:admin'])->group(function(){
+Route::middleware(['UserAkses:admin'])->group(function(){
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 Route::get('/pembelian', [AdminController::class, 'pembelian'])->name('pembelian');
 
 Route::post('/create-users', [AuthController::class, 'store'])->name('user.store');
+Route::delete('/user-delete/{id}', [AuthController::class, 'destroy'])->name('user.delete');
 Route::post('/create-product', [ProdukController::class, 'store'])->name('produk.store');
 Route::delete('/produk-delete/{id}', [ProdukController::class, 'destroy'])->name('produk.delete');
 Route::put('/produk-update/{id}', [ProdukController::class, 'update'])->name('produk.update');
-// });
+});
 
 // PETUGAS
-// Route::middleware(['UserAkses:petugas'])->group(function(){
+Route::middleware(['UserAkses:petugas'])->group(function(){
 Route::get('/dashboard-petugas', [PetugasController::class, 'dashboard'])->name('dashboard-petugas');
 
 Route::get('/struk/{id_pelanggan}', [PetugasController::class, 'struk'])->name('struk');
 Route::get('/penjualan', [PetugasController::class, 'penjualan'])->name('penjualan');
 Route::post('/create-penjualan', [PetugasController::class, 'store'])->name('penjualan.store');
-// });
+Route::put('/pelanggan-update/{id}', [PetugasController::class, 'update'])->name('pelanggan.update');
+
+});
 
 
 

@@ -36,10 +36,7 @@
 
     {{-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --}}
 
-                <button class="messages-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle">
-                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
-                </button>
+
                 </div>
                 <div class="app-content">
                 <div class="app-sidebar">
@@ -251,7 +248,7 @@
                                         <span style="font-size: 13px; font:unbold">({{$value->stock}})</span></p></center>
                                     <br>
                                     <div class="project-box-header ">
-                                        <span>Create : 20/01/24</span>
+                                        <span>Created :  {{$value->created_at->isoFormat('D MMMM  YYYY')}}</span>
                                     </div>
                                     <div class="box-progress-bar">
                                         <span class="box-progress" style="width: 100%; background-color: #f7e600"></span>
@@ -336,8 +333,14 @@
                     <div class="name">{{$value->nama}}</div>
                     <div class="dropdown" style="margin-right: 150px">
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{$value->id}}">
-                            <a class="dropdown-item" href="#">Delete</a>
+                            <form action="{{ route('user.delete',['id' => $value->id] )}}" method="POST"  style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" style="border: none; background:none">
+                            <a class="dropdown-item" type="submit" style="color:firebrick">Delete User</a>
+                        </button>
                         </div>
+                        </form>
                     </div>
                     </div>
                     <p class="message-line">
@@ -417,52 +420,59 @@
 </script>
 
     {{-- LOADER --}}
-    {{-- <style>
-        #loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 1s ease;
-            opacity: ;
-        }
+<style>
+    #loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 1s ease;
+    }
 
-        #loader.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+    #loader.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
 
-        #loader video {
-            max-width: 50%;
-            max-height: 100%;
-            border-radius: 50%;
-            border: none
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-        }
-    </style>
-    <div id="loader">
-        <video autoplay loop muted>
-            <source src="juanslogo.mp4" type="video/mp4">
-        </video>
-    </div>
-    <script>
-        window.addEventListener('load', function () {
-            const loader = document.getElementById('loader');
-            const content = document.getElementById('content');
+    #loader video {
+        max-width: 50%;
+        max-height: 100%;
+        border-radius: 50%;
+        border: none;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    }
+</style>
 
-            // Hide loader and show content after page is fully loaded
-            window.setTimeout(function () {
-                loader.classList.add('hidden');
-                content.style.display = 'block';
-            }, 2000); // Adjust the timeout as needed
-        });
-    </script> --}}
+<div id="loader" class="hidden">
+    <video autoplay loop muted>
+        <source src="juanslogo.mp4" type="video/mp4">
+    </video>
+</div>
+
+<script>
+    function checkLoaderStatus() {
+        if (!sessionStorage.getItem('loaderShown')) {
+            document.getElementById('loader').classList.remove('hidden');
+            sessionStorage.setItem('loaderShown', true);
+            setTimeout(function() {
+                document.getElementById('loader').classList.add('hidden');
+            }, 2000);
+        }
+    }
+
+    // Call checkLoaderStatus when the window is loaded
+    window.addEventListener('load', checkLoaderStatus);
+</script>
+
+
+
+
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">

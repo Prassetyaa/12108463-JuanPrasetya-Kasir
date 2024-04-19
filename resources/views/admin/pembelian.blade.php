@@ -84,7 +84,8 @@
             <div class="projects-section" style="box-shadow: 20px 20px 50px 0px rgba(0, 0, 0, 0.1); overflow: auto;">
                 <div class="projects-section-header">
                     <p>Purchase List</p>
-                    <p class="time">Admin</p>
+                    <p>Admin</p>
+
                 </div>
                 <div class="projects-section-line">
                     <table class="table table-hover">
@@ -123,6 +124,7 @@
                                     {{$value->created_at->isoFormat('D MMMM  YYYY')}} <br>
                                     {{$value->created_at->format('H : i a')}}
                                 </td>
+
                             </tr>
 
                             @endforeach

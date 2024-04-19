@@ -135,7 +135,7 @@
                                 <div class="product-info">
                                     <br>
                                     <p class="product-name" style="color: grey">{{ $product->namaproduk }}</p>
-                                    <p class="product-price"><b>Rp. {{ number_format($product->harga) }}</b></p>
+                                    <p class="product-price"><b >Rp. {{ number_format($product->harga) }}</b></p>
                                 </div>
                             </div>
                         </label>
@@ -270,7 +270,7 @@
             // Iterasi melalui setiap elemen project-box
             for (i = 0; i < projectBoxes.length; i++) {
                 // Perhatikan cara Anda mendapatkan nama produk dari konten
-                productName = projectBoxes[i].querySelector('.nama').textContent.toUpperCase();
+                productName = projectBoxes[i].querySelector('.product-name').textContent.toUpperCase();
                 if (productName.indexOf(filter) > -1) {
                     projectBoxes[i].style.display = '';
                 } else {
@@ -284,6 +284,53 @@
 
     </script>
 
+{{-- LOADER --}}
+<style>
+    #loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 1s ease;
+        opacity: ;
+    }
+
+    #loader.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    #loader video {
+        max-width: 50%;
+        max-height: 100%;
+        border-radius: 50%;
+        border: none
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    }
+</style>
+<div id="loader">
+    <video autoplay loop muted>
+        <source src="juanslogo.mp4" type="video/mp4">
+    </video>
+</div>
+<script>
+    window.addEventListener('load', function () {
+        const loader = document.getElementById('loader');
+        const content = document.getElementById('content');
+
+        // Hide loader and show content after page is fully loaded
+        window.setTimeout(function () {
+            loader.classList.add('hidden');
+            content.style.display = 'block';
+        }, 2000); // Adjust the timeout as needed
+    });
+</script>
 
             <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
