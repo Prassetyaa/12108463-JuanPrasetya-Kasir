@@ -11,20 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produks', function (Blueprint $table) {
+        Schema::create('pelanggans', function (Blueprint $table) {
             $table->id();
-            $table->string('namaproduk');
-            $table->decimal('harga' );
-            $table->integer('stock');
-            $table->string('img');
+            $table->string('namapelanggan');
+            $table->string('alamat');
+            $table->string('telepon');
             $table->timestamps();
         });
     }
 
-
-
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('produks');
+        Schema::dropIfExists('pelanggans');
     }
 };
